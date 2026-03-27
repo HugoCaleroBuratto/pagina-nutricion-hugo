@@ -104,7 +104,7 @@ export default function MealPlanView({ items }) {
         )
       })}
 
-      {/* ── Section B: Weekly raw summary ───────────────────────────── */}
+      {/* ── Section B: Weekly raw summary grouped by meal ───────────── */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-violet-50 to-purple-50">
           <h3 className="text-sm font-bold text-violet-800">📦 Qué cocinar en la semana (crudo × 7 días)</h3>
@@ -114,33 +114,55 @@ export default function MealPlanView({ items }) {
             <thead>
               <tr className="border-b border-gray-100">
                 <th className={`${TH} text-gray-500 w-44`}>Alimento</th>
-                <th className={`${TH} text-gray-500 text-center`}>Crudo × 7 días</th>
-                <th className={`${TH} text-gray-400 text-left`}>Comida</th>
+                <th className={`${TH} text-gray-500 text-center`}>Crudo / día</th>
+                <th className={`${TH} text-violet-600 text-center`}>Crudo × 7 días</th>
               </tr>
             </thead>
             <tbody>
-              {items.map(item => (
-                <tr key={item.id} className="border-b border-gray-50 hover:bg-gray-50/50">
-                  <td className="py-2.5 px-3 text-sm text-gray-700">
-                    <span className="mr-1">{item.food.emoji || '🍽️'}</span>
-                    {item.food.name}
-                  </td>
-                  <td className="py-2.5 px-3 text-sm text-center font-medium tabular-nums text-gray-700">
-                    {formatGrams(rawForDays(item.gramsPerDay, 7))}
-                  </td>
-                  <td className="py-2.5 px-3 text-xs text-gray-400">
-                    {item.meal ?? 'Sin comida asignada'}
-                  </td>
-                </tr>
-              ))}
+              {mealEntries.map(([mealName, mealItems]) => {
+                const mealRaw7 = mealItems.reduce((sum, item) => sum + rawForDays(item.gramsPerDay, 7), 0)
+                return (
+                  <>
+                    {/* Meal header row */}
+                    <tr key={`header-${mealName}`} className="bg-violet-50 border-t border-violet-100">
+                      <td colSpan={3} className="py-2 px-3 text-xs font-bold text-violet-700">
+                        {mealName}
+                      </td>
+                    </tr>
+                    {/* Items */}
+                    {mealItems.map(item => (
+                      <tr key={item.id} className="border-b border-gray-50 hover:bg-gray-50/50">
+                        <td className="py-2.5 px-3 pl-6 text-sm text-gray-700">
+                          <span className="mr-1">{item.food.emoji || '🍽️'}</span>
+                          {item.food.name}
+                        </td>
+                        <td className="py-2.5 px-3 text-sm text-center tabular-nums text-gray-500">
+                          {formatGrams(rawForDays(item.gramsPerDay, 1))}
+                        </td>
+                        <td className="py-2.5 px-3 text-sm text-center font-medium tabular-nums text-violet-700">
+                          {formatGrams(rawForDays(item.gramsPerDay, 7))}
+                        </td>
+                      </tr>
+                    ))}
+                    {/* Meal subtotal */}
+                    <tr key={`subtotal-${mealName}`} className="bg-violet-50/60 border-t border-violet-100">
+                      <td className="py-2 px-3 pl-6 text-xs font-semibold text-violet-500">Total comida</td>
+                      <td className="py-2 px-3 text-xs text-center tabular-nums text-gray-400">—</td>
+                      <td className="py-2 px-3 text-xs text-center font-bold tabular-nums text-violet-600">
+                        {formatGrams(mealRaw7)}
+                      </td>
+                    </tr>
+                  </>
+                )
+              })}
             </tbody>
             <tfoot>
-              <tr className="bg-gradient-to-r from-violet-50 to-purple-50 border-t-2 border-violet-200 font-bold">
+              <tr className="bg-gradient-to-r from-violet-100 to-purple-100 border-t-2 border-violet-300 font-bold">
                 <td className="py-2.5 px-3 text-sm text-violet-700">TOTAL semana</td>
-                <td className="py-2.5 px-3 text-sm text-center text-gray-700 tabular-nums">
+                <td className="py-2.5 px-3 text-sm text-center text-gray-400">—</td>
+                <td className="py-2.5 px-3 text-sm text-center text-violet-700 tabular-nums">
                   {formatGrams(items.reduce((sum, item) => sum + rawForDays(item.gramsPerDay, 7), 0))}
                 </td>
-                <td />
               </tr>
             </tfoot>
           </table>

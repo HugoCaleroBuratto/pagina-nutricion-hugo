@@ -2,6 +2,7 @@ import { useState } from 'react'
 import AddFoodForm from './components/AddFoodForm'
 import CartTable from './components/CartTable'
 import CustomFoodModal from './components/CustomFoodModal'
+import MealPlanView from './components/MealPlanView'
 import NutritionPanel from './components/NutritionPanel'
 import ProgressCharacter from './components/ProgressCharacter'
 import { useCart } from './hooks/useCart'
@@ -13,6 +14,7 @@ export default function App() {
   const [showModal, setShowModal] = useState(false)
   const [customFoods, setCustomFoods] = useState([])
   const [showPlanConfirm, setShowPlanConfirm] = useState(false)
+  const [activeView, setActiveView] = useState('cart')
 
   function handleSaveCustom(food) {
     setCustomFoods(prev => [...prev, food])
@@ -159,14 +161,43 @@ export default function App() {
           </div>
         )}
 
+        {/* ── View tabs ─────────────────────────────────────────────────── */}
+        <div className="flex gap-2 no-print">
+          <button
+            onClick={() => setActiveView('cart')}
+            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+              activeView === 'cart'
+                ? 'bg-emerald-500 text-white shadow-sm'
+                : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'
+            }`}
+          >
+            🛒 Lista de compras
+          </button>
+          <button
+            onClick={() => setActiveView('meals')}
+            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+              activeView === 'meals'
+                ? 'bg-emerald-500 text-white shadow-sm'
+                : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'
+            }`}
+          >
+            🍽️ Comidas
+          </button>
+        </div>
+
         {/* ── Cart table ────────────────────────────────────────────────── */}
-        <CartTable
-          items={items}
-          boughtIds={boughtIds}
-          onRemove={removeItem}
-          onToggleBought={toggleBought}
-          onClear={clearCart}
-        />
+        {activeView === 'cart' && (
+          <CartTable
+            items={items}
+            boughtIds={boughtIds}
+            onRemove={removeItem}
+            onToggleBought={toggleBought}
+            onClear={clearCart}
+          />
+        )}
+
+        {/* ── Meal plan view ────────────────────────────────────────────── */}
+        {activeView === 'meals' && <MealPlanView items={items} />}
 
         {/* ── Legend ────────────────────────────────────────────────────── */}
         {items.length > 0 && (

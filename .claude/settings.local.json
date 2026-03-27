@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Read(//usr/local/bin/**)",
+      "Bash(echo \"PATH: $PATH\")",
+      "Bash(\"$BUN\" create:*)",
+      "Bash(\"/Users/hugocalero/Library/Application Support/reflex/bun/bin/bun\" install:*)",
+      "Bash(\"/Users/hugocalero/Library/Application Support/reflex/bun/bin/bun\" run:*)",
+      "Bash(git rm:*)"
+    ]
+  }
+}

@@ -10,6 +10,7 @@ import { Landing } from "./routes/public/Landing";
 import { Login } from "./routes/public/Login";
 import { Register } from "./routes/public/Register";
 import { Placeholder } from "./routes/Placeholder";
+import { Calculator } from "./routes/app/Calculator";
 
 export default function App() {
   return (
@@ -33,7 +34,7 @@ export default function App() {
             }
           >
             <Route index element={<Navigate to="/app/diario" replace />} />
-            <Route path="calculadora" element={<Placeholder title="Calculadora" description="Calculá tu objetivo calórico." icon="calculate" />} />
+            <Route path="calculadora" element={<Calculator />} />
             <Route path="catalogo"    element={<Placeholder title="Catálogo de planes" description="Elegí un plan que se ajuste a tu objetivo." icon="restaurant_menu" />} />
             <Route path="mensual"     element={<Placeholder title="Plan mensual" description="Tu plan en formato calendario." icon="calendar_month" />} />
             <Route path="diario"      element={<Placeholder title="Resumen diario" description="Marcá lo que cumpliste hoy." icon="calendar_today" />} />

@@ -7,7 +7,21 @@
       "Bash(\"$BUN\" create:*)",
       "Bash(\"/Users/hugocalero/Library/Application Support/reflex/bun/bin/bun\" install:*)",
       "Bash(\"/Users/hugocalero/Library/Application Support/reflex/bun/bin/bun\" run:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "WebFetch(domain:stitch.withgoogle.com)",
+      "Bash(git checkout *)",
+      "Bash(git mv *)",
+      "Bash(bun --version)",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(npm audit *)",
+      "Bash(unzip -o stitch_nutriplan_tracker.zip -d stitch_designs/)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(curl -s -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1dm9yeXN4YnlqeHVrenpoa253Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODIxODAsImV4cCI6MjA5MjU1ODE4MH0.gT-EFR-rm_l9QU6tFUyq9_CAr3J_N_2WWJDHMaBz4X0\" \"https://quvorysxbyjxukzzhknw.supabase.co/rest/v1/profiles?select=id&limit=1\")",
+      "Bash(npx vitest *)"
     ]
   }
 }

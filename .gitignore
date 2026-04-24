@@ -33,3 +33,8 @@ Thumbs.db
 # Cache
 .cache/
 .parcel-cache/
+
+# Referencias de diseño locales (no código)
+img/
+image*.png
+
